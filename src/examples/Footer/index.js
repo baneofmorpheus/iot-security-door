@@ -60,21 +60,10 @@ function Footer({ company, links }) {
         fontSize={size.sm}
         px={1.5}
       >
-        &copy; {new Date().getFullYear()}, made with
-        <SoftBox fontSize={size.md} color="text" mb={-0.5} mx={0.25}>
-          <Icon color="inherit" fontSize="inherit">
-            favorite
-          </Icon>
-        </SoftBox>
-        by
-        <Link href={href} target="_blank">
-          <SoftTypography variant="button" fontWeight="medium">
-            &nbsp;{name}&nbsp;
-          </SoftTypography>
-        </Link>
-        for a better web.
+        &copy; {new Date().getFullYear()} IOT Security Door
+     
       </SoftBox>
-      <SoftBox
+      {/* <SoftBox
         component="ul"
         sx={({ breakpoints }) => ({
           display: "flex",
@@ -92,7 +81,7 @@ function Footer({ company, links }) {
         })}
       >
         {renderLinks()}
-      </SoftBox>
+      </SoftBox> */}
     </SoftBox>
   );
 }

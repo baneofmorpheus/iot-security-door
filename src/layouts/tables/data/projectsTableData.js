@@ -36,104 +36,48 @@ const action = (
 
 const projectsTableData = {
   columns: [
-    { name: "project", align: "left" },
-    { name: "budget", align: "left" },
+    { name: "name", align: "left" },
+    { name: "method", align: "left" },
     { name: "status", align: "left" },
-    { name: "completion", align: "center" },
     { name: "action", align: "center" },
   ],
 
   rows: [
     {
-      project: [logoSpotify, "Spotift"],
-      budget: (
+      name: <SoftTypography variant="caption" color="text" fontWeight="medium">
+        John Doe
+      </SoftTypography>,
+      method: (
         <SoftTypography variant="button" color="text" fontWeight="medium">
-          $2,500
+        PIN <br/>
+        FiNGERPRINT
         </SoftTypography>
       ),
       status: (
         <SoftTypography variant="caption" color="text" fontWeight="medium">
-          working
+          Active
         </SoftTypography>
       ),
-      completion: <Completion value={60} color="info" />,
       action,
     },
     {
-      project: [logoInvesion, "Invesion"],
-      budget: (
+      name: <SoftTypography variant="caption" color="text" fontWeight="medium">
+        Jane Doe
+      </SoftTypography>,
+      method: (
         <SoftTypography variant="button" color="text" fontWeight="medium">
-          $5,000
+        PIN <br/>
+        FiNGERPRINT
         </SoftTypography>
       ),
       status: (
         <SoftTypography variant="caption" color="text" fontWeight="medium">
-          done
+          InActive
         </SoftTypography>
       ),
-      completion: <Completion value={100} color="success" />,
       action,
     },
-    {
-      project: [logoJira, "Jira"],
-      budget: (
-        <SoftTypography variant="button" color="text" fontWeight="medium">
-          $3,400
-        </SoftTypography>
-      ),
-      status: (
-        <SoftTypography variant="caption" color="text" fontWeight="medium">
-          canceled
-        </SoftTypography>
-      ),
-      completion: <Completion value={30} color="error" />,
-      action,
-    },
-    {
-      project: [logoSlack, "Slack"],
-      budget: (
-        <SoftTypography variant="button" color="text" fontWeight="medium">
-          $1,400
-        </SoftTypography>
-      ),
-      status: (
-        <SoftTypography variant="caption" color="text" fontWeight="medium">
-          canceled
-        </SoftTypography>
-      ),
-      completion: <Completion value={0} color="error" />,
-      action,
-    },
-    {
-      project: [logoWebDev, "Webdev"],
-      budget: (
-        <SoftTypography variant="button" color="text" fontWeight="medium">
-          $14,000
-        </SoftTypography>
-      ),
-      status: (
-        <SoftTypography variant="caption" color="text" fontWeight="medium">
-          working
-        </SoftTypography>
-      ),
-      completion: <Completion value={80} color="info" />,
-      action,
-    },
-    {
-      project: [logoXD, "Adobe XD"],
-      budget: (
-        <SoftTypography variant="button" color="text" fontWeight="medium">
-          $2,300
-        </SoftTypography>
-      ),
-      status: (
-        <SoftTypography variant="caption" color="text" fontWeight="medium">
-          done
-        </SoftTypography>
-      ),
-      completion: <Completion value={100} color="success" />,
-      action,
-    },
+
   ],
 };
 
