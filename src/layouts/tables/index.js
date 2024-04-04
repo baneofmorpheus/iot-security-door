@@ -25,14 +25,99 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import Table from "examples/Tables/Table";
+import mqtt from 'mqtt';
+import SoftBadge from "components/SoftBadge";
+import team2 from "assets/images/team-2.jpg";
 
 // Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
+import { Author, Function } from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
-
+import { useEffect, useState } from "react";
 function Tables() {
-  const { columns, rows } = authorsTableData;
   const { columns: prCols, rows: prRows } = projectsTableData;
+
+  const [accessControlLog, setAccessControlLog] = useState([])
+  const [accessControlRows, setAccessControlRows] = useState([])
+
+
+  const accessControlColumns = [
+    { name: "user", align: "left" },
+    { name: "method", align: "left" },
+    { name: "status", align: "center" },
+    { name: "timestamp", align: "center" },
+    { name: "action", align: "center" },
+  ]
+
+
+  useEffect(() => {
+
+    const newRows = accessControlLog.map((singleLog) => {
+
+      return {
+        user: <Author image={team2} name={singleLog[1]} />,
+        method: <Function job={singleLog[2]} />,
+        status: (
+          <SoftBadge variant="gradient" badgeContent={parseInt(singleLog[3]) == 1 ? "Successful" : "Unsuccessful"} color={parseInt(singleLog[3]) == 1 ? "success" : "error"} size="xs" container />
+        ),
+        timestamp: (
+          <SoftTypography variant="caption" color="secondary" fontWeight="medium">
+            {singleLog[4]}
+          </SoftTypography>
+        ),
+        action: (
+          <SoftTypography
+            component="a"
+            href="#"
+            variant="caption"
+            color="secondary"
+            fontWeight="medium"
+          >
+            {/* Edit */}
+          </SoftTypography>
+        ),
+      }
+    })
+
+    setAccessControlRows(newRows)
+
+  }, [accessControlLog])
+  useEffect(() => {
+
+  
+
+
+    const client = mqtt.connect('wss://77c65c2c917f4380a4d5420b70681b45.s2.eu.hivemq.cloud:8884/mqtt', {
+      username: 'genii',
+      // protocol: 'mqtts',
+      password: '#7Z8vWvi!ywsfM6',
+      // port: 8883,
+    });
+
+
+    client.on('message', (topic, message) => {
+      console.log('received new msg');
+
+      const formattedMsg = JSON.parse(message.toString())
+      console.log(formattedMsg);
+      setAccessControlLog(formattedMsg)
+
+
+
+    });
+    client.on('connect', () => {
+
+      console.log(`Connected to client`);
+
+      client.subscribe('raspberry/update');
+      client.publish('raspberry/init', '1');
+    });
+
+    client.on('error', (error) => {
+      console.log(`Error to`);
+      console.log(error);
+    });
+  }, [])
+
 
   return (
     <DashboardLayout>
@@ -53,7 +138,7 @@ function Tables() {
                 },
               }}
             >
-              <Table columns={columns} rows={rows} />
+              <Table columns={accessControlColumns} rows={accessControlRows} />
             </SoftBox>
           </Card>
         </SoftBox>
